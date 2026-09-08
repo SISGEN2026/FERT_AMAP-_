@@ -517,8 +517,8 @@
             <div class="side-bar-content">
               <div class="form-group">
                 <label for="cultura">Cultura Desejada:</label>
-                <select id="cultura">
-                  <option value="ABACAXI"Selected>ABACAXI</option>
+                <select id="cultura" onchange="atualizarCultura()">
+                  <option value="ABACAXI" selected>ABACAXI</option>
                   <option value="AÇAÍ">AÇAÍ</option>
                   <option value="BANANA">BANANA</option>
                   <option value="CACAU">CACAU</option>
@@ -542,31 +542,27 @@
                 </div>
                 <div class="form-group">
                   <label for="v1">V1 Atual (%):</label>
-                  <input type="number" id="v1" value="6.0" step="0.1">
+                  <input type="number" id="v1" value="6.0" step="0.1" oninput="calcular()">
                 </div>
                 <div class="form-group">
                   <label for="ctc">CTC (pH 7,0):</label>
-                  <input type="number" id="ctc" value="2.1" step="0.1">
+                  <input type="number" id="ctc" value="2.1" step="0.1" oninput="calcular()">
                 </div>
               </div>
 
               <div class="sub-group-title">2. Método Neutralização do Al e Elevação de Ca+Mg</div>
               <div class="form-group-row">
                 <div class="form-group">
-                  <label for="solo_al">Al (cmol_c/dm³):</label>
-                  <input type="number" id="solo_al" value="0.8" step="0.1">
+                  <label for="solo_al">Al³⁺ (cmol_c/dm³):</label>
+                  <input type="number" id="solo_al" value="0.8" step="0.1" oninput="calcular()">
                 </div>
                 <div class="form-group">
-                  <label for="solo_ca">Ca+Mg (cmol_c/dm³):</label>
-                  <input type="number" id="solo_ca" value="0.9" step="0.1">
+                  <label for="solo_ca">Ca (cmol_c/dm³):</label>
+                  <input type="number" id="solo_ca" value="0.6" step="0.1" oninput="calcular()">
                 </div>
                 <div class="form-group">
                   <label for="solo_mg">Mg (cmol_c/dm³):</label>
-                  <input type="number" id="solo_mg" value="0.3" step="0.1">
-                </div>
-                <div class="form-group">
-                  <label for="camg_desejado">Ca+Mg Desejado:</label>
-                  <input type="number" id="camg_desejado" value="2.0" step="0.1">
+                  <input type="number" id="solo_mg" value="0.6" step="0.1" oninput="calcular()">
                 </div>
               </div>
 
@@ -574,7 +570,7 @@
               <div class="form-group-row">
                 <div class="form-group">
                   <label for="prnt">PRNT Calcário (%):</label>
-                  <input type="number" id="prnt" value="83.0" step="1">
+                  <input type="number" id="prnt" value="83.0" step="0.1" oninput="calcular()">
                 </div>
               </div>
 
@@ -608,11 +604,11 @@
                 </div>
                 <div class="form-group">
                   <label for="soloP">P (mg/dm³):</label>
-                  <input type="number" id="soloP" value="5.4" step="0.1">
+                  <input type="number" id="soloP" value="5.4" step="0.1" oninput="calcular()">
                 </div>
                 <div class="form-group">
                   <label for="soloK">K (cmol_c/dm³):</label>
-                  <input type="number" id="soloK" value="0.39" step="0.01">
+                  <input type="number" id="soloK" value="0.39" step="0.01" oninput="calcular()">
                 </div>
               </div>
 
@@ -620,15 +616,15 @@
               <div class="form-group-row">
                 <div class="form-group">
                   <label for="dose_n">N (kg/ha):</label>
-                  <input type="number" id="dose_n" value="120" step="1">
+                  <input type="number" id="dose_n" value="120" step="1" oninput="calcular()">
                 </div>
                 <div class="form-group">
                   <label for="dose_p2o5">P₂O₅ (kg/ha):</label>
-                  <input type="number" id="dose_p2o5" value="80" step="1">
+                  <input type="number" id="dose_p2o5" value="80" step="1" oninput="calcular()">
                 </div>
                 <div class="form-group">
                   <label for="dose_k2o">K₂O (kg/ha):</label>
-                  <input type="number" id="dose_k2o" value="320" step="1">
+                  <input type="number" id="dose_k2o" value="320" step="1" oninput="calcular()">
                 </div>
               </div>
             </div>
@@ -642,8 +638,8 @@
               <tr>
                 <th style="width:15%;">Nutriente</th>
                 <th style="width:20%;">Estimativa Solo (kg/ha)</th>
-                <th style="width:32%;">Status / Interpretação</th>
-                <th style="width:20%;">Dose Real Ajustada</th>
+                <th style="width:40%;">Status / Interpretação</th>
+                <th style="width:25%;">Dose Real Ajustada</th>
               </tr>
             </thead>
             <tbody>
@@ -656,13 +652,13 @@
               <tr>
                 <td><strong>P₂O₅</strong></td>
                 <td id="diag-estimativa-p">0.0 kg/ha</td>
-                <td id="diag-status-p">Suficiente no Solo (Sem Complementação)</td>
+                <td id="diag-status-p">-</td>
                 <td id="diag-real-p">0.0 kg/ha</td>
               </tr>
               <tr>
                 <td><strong>K₂O</strong></td>
                 <td id="diag-estimativa-k">0.0 kg/ha</td>
-                <td id="diag-status-k">Suficiente no Solo (Sem Complementação)</td>
+                <td id="diag-status-k">-</td>
                 <td id="diag-real-k">0.0 kg/ha</td>
               </tr>
             </tbody>
@@ -689,7 +685,7 @@
                 <td>-</td>
               </tr>
               <tr>
-                <td>Necessidade de Calcário (PRNT 100%) </td>
+                <td>Necessidade de Calcário (PRNT 100%)</td>
                 <td id="res-nc100">0.00 kg/ha</td>
                 <td>-</td>
               </tr>
@@ -787,32 +783,32 @@
               <tr>
                 <td>Calcário Dolomítico</td>
                 <td>PRNT Corrigido</td>
-                <td><input type="number" class="input-table-price" id="preco_calcario" value="1.10" step="0.01"></td>
+                <td><input type="number" class="input-table-price" id="preco_calcario" value="1.10" step="0.01" oninput="calcular()"></td>
               </tr>
               <tr>
                 <td>Sulfato de Amônio</td>
                 <td>21% N, 24% S</td>
-                <td><input type="number" class="input-table-price" id="preco_samonio" value="4.50" step="0.01"></td>
+                <td><input type="number" class="input-table-price" id="preco_samonio" value="4.50" step="0.01" oninput="calcular()"></td>
               </tr>
               <tr>
                 <td>Ureia</td>
                 <td>45% N</td>
-                <td><input type="number" class="input-table-price" id="preco_ureia" value="5.80" step="0.01"></td>
+                <td><input type="number" class="input-table-price" id="preco_ureia" value="5.80" step="0.01" oninput="calcular()"></td>
               </tr>
               <tr>
                 <td>Superfosfato Simples</td>
                 <td>18% P₂O₅, 16% Ca, 10% S</td>
-                <td><input type="number" class="input-table-price" id="preco_sfs" value="4.24" step="0.01"></td>
+                <td><input type="number" class="input-table-price" id="preco_sfs" value="4.24" step="0.01" oninput="calcular()"></td>
               </tr>
               <tr>
                 <td>Superfosfato Triplo</td>
                 <td>43% P₂O₅, 10% Ca</td>
-                <td><input type="number" class="input-table-price" id="preco_sft" value="7.40" step="0.01"></td>
+                <td><input type="number" class="input-table-price" id="preco_sft" value="7.40" step="0.01" oninput="calcular()"></td>
               </tr>
               <tr>
                 <td>Cloreto de Potássio</td>
                 <td>60% K₂O</td>
-                <td><input type="number" class="input-table-price" id="preco_kcl" value="5.10" step="0.01"></td>
+                <td><input type="number" class="input-table-price" id="preco_kcl" value="5.10" step="0.01" oninput="calcular()"></td>
               </tr>
             </tbody>
           </table>
@@ -828,7 +824,7 @@
           <p>📌 <strong>Parcelamento:</strong> Fertilizantes nitrogenados e potássicos devem ser parcelados durante o ano, conforme recomendação técnica específica da cultura.</p>
           <p>📌 <strong>Aplicação de Fósforo:</strong> Fertilizantes fosfatados devem ser aplicados em dose única por ocasião do plantio/semeadura.</p>
           <p>📌 <strong>Fator de Incorporação do Calcário:</strong> Para a aplicação superficial ou incorporada até 20 cm de profundidade — método observado nestes cálculos —, utiliza-se o valor 1,0. Nos casos em que a incorporação for feita de 20 a 30 cm, o valor deve ser multiplicado por 1,5.</p>
-          <p>📌 <strong>Ajuste de Reposição Mineral Contínua:</strong> Quando a análise de solo indicar uma baixa disponibilidade do elemento ou a necessidade de adubação complementar, a dose calculada para o nutriente em questão deverá ter um acréscimo destinado a suprir as perdas por fixação/precipitação do solo, lixiviação e eficiência real de absorção do sistema radicular, garantindo a efetiva reposição e manutenção da reserva mineral. Nenhum fertilizante aplicado ao solo é 100% aproveitado pela planta, principalmente no ciclo inicial da cultura. A literatura agronômica adota índices médios de Eficiência de recuperação (Ef) para os fertilizantes: Fósforo (P₂O₅) - 15% a 30% de eficiência (alto poder de fixação em solos tropicais intemperizados); Potássio (K₂O) - 60% a 80% de eficiência (perdas por lixiviação em solos arenosos ou de baixa CTC); Nitrogênio (N) - 40% a 60% de eficiência.</p>
+          <p>📌 <strong>Ajuste de Reposição Mineral Contínua:</strong> Quando a análise de solo indicar uma baixa disponibilidade do elemento ou a necessidade de adubação complementar, a dose calculada para o nutriente em questão deverá ter um acréscimo destinado a suprir as perdas por fixação/precipitação do solo, lixiviação e eficiência real de absorção do sistema radicular, garantindo a efetiva reposição e manutenção da reserva mineral.</p>
         </div>
       </section>
     </main>
@@ -839,7 +835,6 @@
   </div>
 
   <script>
-    // Tabela com as necessidades padrão por cultura para carregar ao selecionar
     const recomendacaoCulturas = {
       "ABACAXI": { v2: 60, n: 120, p: 80, k: 320 },
       "AÇAÍ": { v2: 60, n: 90, p: 40, k: 100 },
@@ -853,7 +848,7 @@
       "MARACUJÁ": { v2: 70, n: 80, p: 61, k: 72 },
       "MILHO": { v2: 70, n: 130, p: 90, k: 70 },
       "SOJA": { v2: 60, n: 0, p: 90, k: 70 },
-      "OUTRAS CULTURAS": { v2: 60, n: 0, p: 0, k: 0 },
+      "OUTRAS CULTURAS": { v2: 60, n: 0, p: 0, k: 0 }
     };
 
     function parseVal(id) {
@@ -864,6 +859,22 @@
 
     function formatNum(val, dec = 2) {
       return val.toFixed(dec);
+    }
+
+    function formatMoeda(val) {
+      return val.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function atualizarCultura() {
+      const sel = document.getElementById('cultura').value;
+      const rec = recomendacaoCulturas[sel];
+      if (rec) {
+        document.getElementById('v2_input').value = rec.v2 + "%";
+        document.getElementById('dose_n').value = rec.n;
+        document.getElementById('dose_p2o5').value = rec.p;
+        document.getElementById('dose_k2o').value = rec.k;
+        calcular();
+      }
     }
 
     window.openModule = function(tabName) {
@@ -888,230 +899,170 @@
       
       const targetTab = document.getElementById('tab-' + tabName);
       if (targetTab) targetTab.classList.add('active');
-      
-      document.querySelectorAll('.tab-button').forEach(btn => {
-        if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabName)) {
-          btn.classList.add('active');
-        }
-      });
+
+      const tabs = Array.from(document.querySelectorAll('.tab-button'));
+      const activeBtn = tabs.find(btn => btn.getAttribute('onclick').includes(tabName));
+      if (activeBtn) activeBtn.classList.add('active');
     };
-
-    window.compartilharRelatorio = function() {
-      if (navigator.share) {
-        navigator.share({
-          title: 'FertNPK - Relatório',
-          text: 'Relatório de Cálculo de Calagem e Adubação Mineral - FertNPK',
-          url: window.location.href,
-        }).catch(() => {});
-      } else {
-        alert('O recurso de compartilhamento não é suportado neste navegador. Utilize a opção de salvar em PDF.');
-      }
-    };
-
-    function aoMudarCultura() {
-      const cult = document.getElementById('cultura').value;
-      const rec = recomendacaoCulturas[cult] || { v2: 50, n: 100, p: 60, k: 100 };
-      
-      document.getElementById('v2_input').value = rec.v2 + '%';
-      document.getElementById('dose_n').value = rec.n;
-      document.getElementById('dose_p2o5').value = rec.p;
-      document.getElementById('dose_k2o').value = rec.k;
-
-      calcular();
-    }
 
     function calcular() {
-      // Obter valores de entrada para Calagem
-      const v2Texto = document.getElementById('v2_input').value;
-      const v2 = parseFloat(v2Texto.replace('%', '')) || 0;
+      const v2 = parseFloat(document.getElementById('v2_input').value) || 60;
       const v1 = parseVal('v1');
       const ctc = parseVal('ctc');
-
-      const al = parseVal('solo_al');
-      const ca = parseVal('solo_ca');
-      const mg = parseVal('solo_mg')
-      const camg_desejado = parseVal('camg_desejado');
       const prnt = parseVal('prnt') || 100;
 
-      // Cálculo de Calagem
-      // Método 1: Elevação da Saturação por Bases (t/ha -> kg/ha)
-      let nc_sat_bases = ((v2 - v1) * ctc) / prnt;
-      if (nc_sat_bases < 0) nc_sat_bases = 0;
-      const nc_sat_bases_kgha = nc_sat_bases * 1000;
+      // 1. Método Elevação da Saturação por Bases
+      let nc_sat_100_tha = (v2 - v1) * ctc / 100;
+      if (nc_sat_100_tha < 0) nc_sat_100_tha = 0;
+      
+      const nc_sat_100_kgha = nc_sat_100_tha * 1000;
+      const nc_sat_comercial_kgha = nc_sat_100_kgha * (100 / prnt);
 
-      // Método 2: Neutralização do Al e Elevação de Ca+Mg (t/ha -> kg/ha)
-      let nc_al_camg = ((2 * al) + (2 - (ca + mg))) * (100 / prnt);
-      if (nc_al_camg < 0) nc_al_camg = 0;
-      const nc_al_camg_kgha = nc_al_camg * 1000;
+      // 2. Método Neutralização do Al e Elevação de Ca+Mg
+      const al = parseVal('solo_al');
+      const ca = parseVal('solo_ca');
+      const mg = parseVal('solo_mg');
 
-      const maiorNcKgHa = Math.max(nc_sat_bases_kgha, nc_al_camg_kgha);
-      const nc100KgHa = (maiorNcKgHa * prnt) / 100;
+      let nc_neut_100_tha = ((2 * al) + (2 - (ca + mg)));
+      if (nc_neut_100_tha < 0) nc_neut_100_tha = 0;
 
-      document.getElementById('nc_sat_bases_kgha').value = formatNum(nc_sat_bases_kgha, 2) + ' kg/ha';
-      document.getElementById('nc_al_camg_kgha').value = formatNum(nc_al_camg_kgha, 2) + ' kg/ha';
-      document.getElementById('res-v2').innerText = v2 + '%';
-      document.getElementById('res-nc100').innerText = formatNum(nc100KgHa, 2) + ' kg/ha';
-      document.getElementById('res-ncprnt').innerText = formatNum(maiorNcKgHa, 2) + ' kg/ha';
+      const nc_neut_100_kgha = nc_neut_100_tha * 1000;
+      const nc_neut_comercial_kgha = nc_neut_100_kgha * (100 / prnt);
 
-      // Preço Calcário
-      const precoCalcario = parseVal('preco_calcario');
-      const custoCalcario = maiorNcKgHa * precoCalcario;
-      document.getElementById('res-custo-calcario').innerText = 'R$ ' + custoCalcario.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('nc_sat_bases_kgha').value = formatNum(nc_sat_comercial_kgha) + " kg/ha";
+      document.getElementById('nc_al_camg_kgha').value = formatNum(nc_neut_comercial_kgha) + " kg/ha";
 
-// =========================================================================
-// 4. Diagnóstico e Doses Reais Ajustadas (Adubação P2O5 e K2O)
-// =========================================================================
-const recN = parseVal('dose_n');
-const recP2O5 = parseVal('dose_p2o5');
-const recK2O = parseVal('dose_k2o');
+      const nc_final_100_kgha = Math.max(nc_sat_100_kgha, nc_neut_100_kgha);
+      const nc_final_comercial_kgha = Math.max(nc_sat_comercial_kgha, nc_neut_comercial_kgha);
+      
+      const preco_calcario = parseVal('preco_calcario');
+      const custo_calcario = (nc_final_comercial_kgha) * preco_calcario;
 
-const soloP = parseVal('soloP'); // mg/dm3
-const soloK = parseVal('soloK'); // cmol_c/dm3
+      // Atualização da Tabela de Calagem (com formatação monetária corrigida em pt-BR)
+      document.getElementById('res-v2').innerText = v2 + "%";
+      document.getElementById('res-nc100').innerText = formatNum(nc_final_100_kgha) + " kg/ha";
+      document.getElementById('res-ncprnt').innerText = formatNum(nc_final_comercial_kgha) + " kg/ha";
+      document.getElementById('res-custo-calcario').innerText = "R$ " + formatMoeda(custo_calcario);
 
-// Conversão da análise de solo (0-20 cm) para disponibilidade teórica (kg/ha):
-// P mg/dm3 -> P kg/ha = P * 2.0. Para P2O5 -> P * 2.0 * 2.29 = P * 4.58
-const estimativaP2O5 = soloP * 4.58;
-// K cmol_c/dm3 -> K2O kg/ha = K * 942.31
-const estimativaK2O = soloK * 942.31;
+      // Doses Recomendadas de Nutrientes para a Cultura
+      const recP2O5 = parseVal('dose_p2o5');
+      const recK2O = parseVal('dose_k2o');
+      const dose_n = parseVal('dose_n');
 
-document.getElementById('diag-estimativa-p').innerText = formatNum(estimativaP2O5, 1) + ' kg/ha';
-document.getElementById('diag-estimativa-k').innerText = formatNum(estimativaK2O, 1) + ' kg/ha';
+      // Análise de Solo
+      const soloP = parseVal('soloP'); // mg/dm3
+      const soloK = parseVal('soloK'); // cmol_c/dm3
 
-// N: Não analisado em rotina -> Dose Real = Dose Recomendada Teórica
-const doseRealN = recN;
-document.getElementById('diag-status-n').innerText = 'Não Analisado em Rotina';
-document.getElementById('diag-real-n').innerText = formatNum(doseRealN, 1) + ' kg/ha';
+      // Conversões para a camada 0-20 cm
+      const estimativaP2O5 = soloP * 4.58;
+      const estimativaK2O = soloK * 942.31;
 
-// =========================================================================
-// P2O5: Eficiência 20% + Acréscimo de 30% como ajuste de reposição
-// =========================================================================
-// =========================================================================
-// P2O5: Eficiência 20% + Acréscimo de 30% como ajuste de reposição
-// =========================================================================
-// =========================================================================
-// P2O5: Eficiência 20% + Acréscimo de 30% como ajuste de reposição
-// =========================================================================
-const necessidadeTotalP2O5 = (recP2O5 - estimativaP2O5) / 0.2 * 1.3;
-const abatimentoP = necessidadeTotalP2O5;
-const doseRealP2O5 = abatimentoP > 0 ? abatimentoP : 0;
+      // 1. Diagnóstico Nitrogênio (N)
+      document.getElementById('diag-status-n').innerText = "Não Analisado em Rotina";
+      document.getElementById('diag-real-n').innerText = formatNum(dose_n, 1) + " kg/ha";
 
-if (recP2O5 <= 0 || (estimativaP2O5 >= recP2O5 && estimativaP2O5 >= necessidadeTotalP2O5)) {
-  // 1ª regra: Suficiente (quando o solo cobre a recomendação base)
-  document.getElementById('diag-status-p').innerText = 'Suficiente no Solo (Sem Complementação)';
-} else if (estimativaP2O5 >= recP2O5) {
-  // 2ª regra: Suficiente (quando a estimativa é maior ou igual à recomendação)
-  document.getElementById('diag-status-p').innerText = 'Suficiente no Solo (Sem Complementação)';
-} else if (recP2O5 > estimativaP2O5) {
-  // 3ª regra (penúltima): recP2O5 (12) > estimativaP2O5 (10)
-  // Como 12 > 10, entra OBRIGATORIAMENTE aqui!
-  document.getElementById('diag-status-p').innerText = 'Necessita Complementação (Perdas e Reposição)';
-} else {
-  // 4ª regra (else)
-  document.getElementById('diag-status-p').innerText = 'Suficiente no Solo (Sem Complementação)';
-}
+      // 2. Diagnóstico Fósforo (P2O5)
+      document.getElementById('diag-estimativa-p').innerText = formatNum(estimativaP2O5, 1) + " kg/ha";
+      
+      const necessidadeTotalP2O5 = (recP2O5 - estimativaP2O5) / 0.2 * 1.3;
+      const abatimentoP = necessidadeTotalP2O5;
+      const doseRealP2O5 = abatimentoP > 0 ? abatimentoP : 0;
 
-document.getElementById('diag-real-p').innerText = formatNum(doseRealP2O5, 1) + ' kg/ha';
+      if (recP2O5 <= 0 || (estimativaP2O5 >= recP2O5 && estimativaP2O5 >= necessidadeTotalP2O5)) {
+        document.getElementById('diag-status-p').innerText = 'Suficiente no Solo (Sem Complementação)';
+      } else if (estimativaP2O5 >= recP2O5) {
+        document.getElementById('diag-status-p').innerText = 'Suficiente no Solo (Sem Complementação)';
+      } else if (recP2O5 > estimativaP2O5) {
+        document.getElementById('diag-status-p').innerText = 'Necessita Complementação (Perdas e Reposição)';
+      } else {
+        document.getElementById('diag-status-p').innerText = 'Suficiente no Solo (Sem Complementação)';
+      }
 
-// =========================================================================
-// K2O: Eficiência 70% + Acréscimo de 30% como ajuste de reposição 
-// =========================================================================
-const necessidadeTotalK2O = (recK2O - estimativaK2O) / 0.7 * 1.3;
-const abatimentoK = necessidadeTotalK2O;
-const doseRealK2O = abatimentoK > 0 ? abatimentoK : 0;
+      document.getElementById('diag-real-p').innerText = formatNum(doseRealP2O5, 1) + ' kg/ha';
 
-if (recK2O <= 0 || (estimativaK2O >= recK2O && estimativaK2O >= necessidadeTotalK2O)) {
-  // 1ª regra: Suficiente (quando o solo cobre a recomendação base)
-  document.getElementById('diag-status-k').innerText = 'Suficiente no Solo (Sem Complementação)';
-} else if (estimativaK2O >= recK2O) {
-  // 2ª regra: Suficiente (quando a estimativa é maior ou igual à recomendação)
-  document.getElementById('diag-status-k').innerText = 'Suficiente no Solo (Sem Complementação)';
-} else if (recK2O > estimativaK2O) {
-  // 3ª regra (penúltima): recK2O > estimativaK2O
-  document.getElementById('diag-status-k').innerText = 'Necessita Complementação (Perdas e Reposição)';
-} else {
-  // 4ª regra (else)
-  document.getElementById('diag-status-k').innerText = 'Suficiente no Solo (Sem Complementação)';
-}
+      // 3. Diagnóstico Potássio (K2O)
+      document.getElementById('diag-estimativa-k').innerText = formatNum(estimativaK2O, 1) + " kg/ha";
 
-document.getElementById('diag-real-k').innerText = formatNum(doseRealK2O, 1) + ' kg/ha';
+      const necessidadeTotalK2O = (recK2O - estimativaK2O) / 0.7 * 1.3;
+      const abatimentoK = necessidadeTotalK2O;
+      const doseRealK2O = abatimentoK > 0 ? abatimentoK : 0;
 
-      // =========================================================================
-      // Cálculo dos Fertilizantes Comerciais usando as Doses Reais
-      // =========================================================================
-      const pSamonio = parseVal('preco_samonio');
-      const pUreia = parseVal('preco_ureia');
-      const pSfs = parseVal('preco_sfs');
-      const pSft = parseVal('preco_sft');
-      const pKcl = parseVal('preco_kcl');
+      if (recK2O <= 0 || (estimativaK2O >= recK2O && estimativaK2O >= necessidadeTotalK2O)) {
+        document.getElementById('diag-status-k').innerText = 'Suficiente no Solo (Sem Complementação)';
+      } else if (estimativaK2O >= recK2O) {
+        document.getElementById('diag-status-k').innerText = 'Suficiente no Solo (Sem Complementação)';
+      } else if (recK2O > estimativaK2O) {
+        document.getElementById('diag-status-k').innerText = 'Necessita Complementação (Perdas e Reposição)';
+      } else {
+        document.getElementById('diag-status-k').innerText = 'Suficiente no Solo (Sem Complementação)';
+      }
 
-      // Fertilizantes Individuais
-      const qtdSamonio = doseRealN / 0.21;
-      const valSamonio = qtdSamonio * pSamonio;
+      document.getElementById('diag-real-k').innerText = formatNum(doseRealK2O, 1) + ' kg/ha';
 
-      const qtdUreia = doseRealN / 0.45;
-      const valUreia = qtdUreia * pUreia;
+      // Cálculo dos Fertilizantes Individuais com base nas Doses Reais Ajustadas
+      const samonio_peso = dose_n / 0.21;
+      const ureia_peso = dose_n / 0.45;
+      const sfs_peso = doseRealP2O5 / 0.18;
+      const sft_peso = doseRealP2O5 / 0.43;
+      const kcl_peso = doseRealK2O / 0.60;
 
-      const qtdSfs = doseRealP2O5 / 0.18;
-      const valSfs = qtdSfs * pSfs;
+      document.getElementById('fc-samonio-peso').innerText = formatNum(samonio_peso) + " kg/ha";
+      document.getElementById('fc-samonio-valor').innerText = "R$ " + formatMoeda(samonio_peso * parseVal('preco_samonio'));
+      document.getElementById('fc-ureia-peso').innerText = formatNum(ureia_peso) + " kg/ha";
+      document.getElementById('fc-ureia-valor').innerText = "R$ " + formatMoeda(ureia_peso * parseVal('preco_ureia'));
+      document.getElementById('fc-sfs-peso').innerText = formatNum(sfs_peso) + " kg/ha";
+      document.getElementById('fc-sfs-valor').innerText = "R$ " + formatMoeda(sfs_peso * parseVal('preco_sfs'));
+      document.getElementById('fc-sft-peso').innerText = formatNum(sft_peso) + " kg/ha";
+      document.getElementById('fc-sft-valor').innerText = "R$ " + formatMoeda(sft_peso * parseVal('preco_sft'));
+      document.getElementById('fc-kcl-peso').innerText = formatNum(kcl_peso) + " kg/ha";
+      document.getElementById('fc-kcl-valor').innerText = "R$ " + formatMoeda(kcl_peso * parseVal('preco_kcl'));
 
-      const qtdSft = doseRealP2O5 / 0.43;
-      const valSft = qtdSft * pSft;
+      // Formulação Agrupada (com arredondamento para inteiros sem vírgulas)
+      const g1_total = samonio_peso + sft_peso + kcl_peso;
+      const g2_total = ureia_peso + sfs_peso + kcl_peso;
 
-      const qtdKcl = doseRealK2O / 0.60;
-      const valKcl = qtdKcl * pKcl;
+      if (g1_total > 0) {
+        const n_perc = Math.round((dose_n / g1_total) * 100);
+        const p_perc = Math.round((doseRealP2O5 / g1_total) * 100);
+        const k_perc = Math.round((doseRealK2O / g1_total) * 100);
+        document.getElementById('g1-formula').innerText = `${n_perc} - ${p_perc} - ${k_perc}`;
+        document.getElementById('g1-qtd').innerText = formatNum(g1_total) + " kg/ha";
+        document.getElementById('g1-custo').innerText = "R$ " + formatMoeda((samonio_peso * parseVal('preco_samonio')) + (sft_peso * parseVal('preco_sft')) + (kcl_peso * parseVal('preco_kcl')));
+      } else {
+        document.getElementById('g1-formula').innerText = "0 - 0 - 0";
+        document.getElementById('g1-qtd').innerText = "0.00 kg/ha";
+        document.getElementById('g1-custo').innerText = "R$ 0,00";
+      }
 
-      document.getElementById('fc-samonio-peso').innerText = formatNum(qtdSamonio, 2) + ' kg/ha';
-      document.getElementById('fc-samonio-valor').innerText = 'R$ ' + valSamonio.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      document.getElementById('fc-ureia-peso').innerText = formatNum(qtdUreia, 2) + ' kg/ha';
-      document.getElementById('fc-ureia-valor').innerText = 'R$ ' + valUreia.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      document.getElementById('fc-sfs-peso').innerText = formatNum(qtdSfs, 2) + ' kg/ha';
-      document.getElementById('fc-sfs-valor').innerText = 'R$ ' + valSfs.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      document.getElementById('fc-sft-peso').innerText = formatNum(qtdSft, 2) + ' kg/ha';
-      document.getElementById('fc-sft-valor').innerText = 'R$ ' + valSft.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      document.getElementById('fc-kcl-peso').innerText = formatNum(qtdKcl, 2) + ' kg/ha';
-      document.getElementById('fc-kcl-valor').innerText = 'R$ ' + valKcl.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      // Agrupamentos
-      // Grupo 1: SAMONIO + SFT + KCL
-      const g1QtdTotal = qtdSamonio + qtdSft + qtdKcl;
-      const g1CustoTotal = valSamonio + valSft + valKcl;
-      let g1N = g1QtdTotal > 0 ? (doseRealN / g1QtdTotal) * 100 : 0;
-      let g1P = g1QtdTotal > 0 ? (doseRealP2O5 / g1QtdTotal) * 100 : 0;
-      let g1K = g1QtdTotal > 0 ? (doseRealK2O / g1QtdTotal) * 100 : 0;
-
-      document.getElementById('g1-formula').innerText = `${formatNum(g1N, 0)} - ${formatNum(g1P, 0)} - ${formatNum(g1K, 0)}`;
-      document.getElementById('g1-qtd').innerText = formatNum(g1QtdTotal, 2) + ' kg/ha';
-      document.getElementById('g1-custo').innerText = 'R$ ' + g1CustoTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      // Grupo 2: UREIA + SFS + KCL
-      const g2QtdTotal = qtdUreia + qtdSfs + qtdKcl;
-      const g2CustoTotal = valUreia + valSfs + valKcl;
-      let g2N = g2QtdTotal > 0 ? (doseRealN / g2QtdTotal) * 100 : 0;
-      let g2P = g2QtdTotal > 0 ? (doseRealP2O5 / g2QtdTotal) * 100 : 0;
-      let g2K = g2QtdTotal > 0 ? (doseRealK2O / g2QtdTotal) * 100 : 0;
-
-      document.getElementById('g2-formula').innerText = `${formatNum(g2N, 0)} - ${formatNum(g2P, 0)} - ${formatNum(g2K, 0)}`;
-      document.getElementById('g2-qtd').innerText = formatNum(g2QtdTotal, 2) + ' kg/ha';
-      document.getElementById('g2-custo').innerText = 'R$ ' + g2CustoTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (g2_total > 0) {
+        const n_perc = Math.round((dose_n / g2_total) * 100);
+        const p_perc = Math.round((doseRealP2O5 / g2_total) * 100);
+        const k_perc = Math.round((doseRealK2O / g2_total) * 100);
+        document.getElementById('g2-formula').innerText = `${n_perc} - ${p_perc} - ${k_perc}`;
+        document.getElementById('g2-qtd').innerText = formatNum(g2_total) + " kg/ha";
+        document.getElementById('g2-custo').innerText = "R$ " + formatMoeda((ureia_peso * parseVal('preco_ureia')) + (sfs_peso * parseVal('preco_sfs')) + (kcl_peso * parseVal('preco_kcl')));
+      } else {
+        document.getElementById('g2-formula').innerText = "0 - 0 - 0";
+        document.getElementById('g2-qtd').innerText = "0.00 kg/ha";
+        document.getElementById('g2-custo').innerText = "R$ 0,00";
+      }
     }
 
-    // Event Listeners
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('cultura').addEventListener('change', aoMudarCultura);
+    function compartilharRelatorio() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Relatório FertNPK',
+          text: 'Confira os resultados de calagem e adubação gerados pelo FertNPK.',
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        alert("A função de compartilhamento não é suportada neste navegador.");
+      }
+    }
 
-      const inputsToListen = document.querySelectorAll('input');
-      inputsToListen.forEach(input => {
-        if (!input.hasAttribute('readonly')) {
-          input.addEventListener('input', calcular);
-        }
-      });
-
+    window.onload = function() {
       calcular();
-    });
+    };
   </script>
 </body>
 </html>
