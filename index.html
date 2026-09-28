@@ -767,53 +767,53 @@
         </div>
       </section>
 
-      <!-- ABA INSUMOS -->
-      <section id="tab-INSUMOS" class="tab-content">
-        <h2>Preços de Mercado dos Insumos</h2>
-        <div class="table-container">
-          <table class="table-compact">
-            <thead>
-              <tr>
-                <th>Insumo</th>
-                <th>Especificação</th>
-                <th>Preço / kg (R$)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Calcário Dolomítico</td>
-                <td>PRNT Corrigido</td>
-                <td><input type="number" class="input-table-price" id="preco_calcario" value="1.10" step="0.01" oninput="calcular()"></td>
-              </tr>
-              <tr>
-                <td>Sulfato de Amônio</td>
-                <td>21% N, 24% S</td>
-                <td><input type="number" class="input-table-price" id="preco_samonio" value="4.50" step="0.01" oninput="calcular()"></td>
-              </tr>
-              <tr>
-                <td>Ureia</td>
-                <td>45% N</td>
-                <td><input type="number" class="input-table-price" id="preco_ureia" value="5.80" step="0.01" oninput="calcular()"></td>
-              </tr>
-              <tr>
-                <td>Superfosfato Simples</td>
-                <td>18% P₂O₅, 16% Ca, 10% S</td>
-                <td><input type="number" class="input-table-price" id="preco_sfs" value="4.24" step="0.01" oninput="calcular()"></td>
-              </tr>
-              <tr>
-                <td>Superfosfato Triplo</td>
-                <td>43% P₂O₅, 10% Ca</td>
-                <td><input type="number" class="input-table-price" id="preco_sft" value="7.40" step="0.01" oninput="calcular()"></td>
-              </tr>
-              <tr>
-                <td>Cloreto de Potássio</td>
-                <td>60% K₂O</td>
-                <td><input type="number" class="input-table-price" id="preco_kcl" value="5.10" step="0.01" oninput="calcular()"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+     <!-- ABA INSUMOS -->
+<section id="tab-INSUMOS" class="tab-content">
+  <h2>Preços de Mercado dos Insumos</h2>
+  <div class="table-container">
+    <table class="table-compact">
+      <thead>
+        <tr>
+          <th>Insumo</th>
+          <th>Especificação</th>
+          <th>Preço / kg (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Calcário Dolomítico</td>
+          <td>PRNT Corrigido</td>
+          <td><input type="number" class="input-table-price" id="preco_calcario" placeholder="0.00" step="0.01" oninput="salvarEcalcular()"></td>
+        </tr>
+        <tr>
+          <td>Sulfato de Amônio</td>
+          <td>21% N, 24% S</td>
+          <td><input type="number" class="input-table-price" id="preco_samonio" placeholder="0.00" step="0.01" oninput="salvarEcalcular()"></td>
+        </tr>
+        <tr>
+          <td>Ureia</td>
+          <td>45% N</td>
+          <td><input type="number" class="input-table-price" id="preco_ureia" placeholder="0.00" step="0.01" oninput="salvarEcalcular()"></td>
+        </tr>
+        <tr>
+          <td>Superfosfato Simples</td>
+          <td>18% P₂O₅, 16% Ca, 10% S</td>
+          <td><input type="number" class="input-table-price" id="preco_sfs" placeholder="0.00" step="0.01" oninput="salvarEcalcular()"></td>
+        </tr>
+        <tr>
+          <td>Superfosfato Triplo</td>
+          <td>43% P₂O₅, 10% Ca</td>
+          <td><input type="number" class="input-table-price" id="preco_sft" placeholder="0.00" step="0.01" oninput="salvarEcalcular()"></td>
+        </tr>
+        <tr>
+          <td>Cloreto de Potássio</td>
+          <td>60% K₂O</td>
+          <td><input type="number" class="input-table-price" id="preco_kcl" placeholder="0.00" step="0.01" oninput="salvarEcalcular()"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
       <!-- ABA DIZERES -->
       <section id="tab-DIZERES" class="tab-content">
@@ -1063,6 +1063,49 @@
     window.onload = function() {
       calcular();
     };
+    // Lista dos IDs dos campos de preço
+const camposPreco = [
+  'preco_calcario',
+  'preco_samonio',
+  'preco_ureia',
+  'preco_sfs',
+  'preco_sft',
+  'preco_kcl'
+];
+
+// Carrega os preços gravados no dispositivo ao abrir o sistema
+function carregarPrecos() {
+  camposPreco.forEach(id => {
+    const valorSalvo = localStorage.getItem(id);
+    const campo = document.getElementById(id);
+    if (campo) {
+      // Se houver valor gravado, aplica ao input; caso contrário, deixa em branco/zerado
+      campo.value = valorSalvo !== null ? valorSalvo : '';
+    }
+  });
+}
+
+// Salva as alterações de preço no dispositivo do usuário
+function salvarPrecos() {
+  camposPreco.forEach(id => {
+    const campo = document.getElementById(id);
+    if (campo) {
+      localStorage.setItem(id, campo.value);
+    }
+  });
+}
+
+// Executa o salvamento e recalculamento ao alterar qualquer preço
+function salvarEcalcular() {
+  salvarPrecos();
+  calcular();
+}
+
+// Inicialização: carrega os preços antes de realizar o primeiro cálculo
+window.onload = function() {
+  carregarPrecos();
+  calcular();
+};
   </script>
 </body>
 </html>
