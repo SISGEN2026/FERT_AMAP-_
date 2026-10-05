@@ -753,13 +753,13 @@
               <tr>
                 <td><strong>Grupo 1:</strong> Sulfato de Amônio + SFT + KCl</td>
                 <td id="g1-formula" style="text-align: center;">0 - 0 - 0</td>
-                <td id="g1-qtd">1.000,00 kg/ha</td> 'pt-BR'
+                <td id="g1-qtd">0,00 kg/ha</td>
                 <td id="g1-custo">R$ 0,00</td>
               </tr>
               <tr>
                 <td><strong>Grupo 2:</strong> Ureia + SFS + KCl</td>
                 <td id="g2-formula" style="text-align: center;">0 - 0 - 0</td>
-                <td id="g2-qtd">1.000,00 kg/ha</td>
+                <td id="g2-qtd">0,00 kg/ha</td>
                 <td id="g2-custo">R$ 0,00</td>
               </tr>
             </tbody>
@@ -1107,6 +1107,19 @@ window.onload = function() {
   carregarPrecos();
   calcular();
 };
+
+    let quantidade = 0,00; // Valor numérico vindo do seu cálculo
+
+// Formata para o padrão brasileiro com 2 casas decimais
+let quantidadeFormatada = quantidade.toLocaleString('pt-BR', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
+
+// Insere na célula HTML
+document.getElementById('g1-qtd').innerText = `${quantidadeFormatada} kg/ha`;
+
+    
   </script>
 </body>
 </html>
